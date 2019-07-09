@@ -4,16 +4,12 @@ class Item extends Component {
 
     constructor(props) {
         super();
-        this.state = { article: { name: props.name }, quantity: props.quantity } ;
+        this.state = { quantity: props.quantity } ;
         console.log(props);
     }
 
     state = {
         quantity: 0,
-        article: {
-            name: "Cat",
-            price: 99.5
-        }
     }
 
     styles = {
@@ -30,22 +26,32 @@ class Item extends Component {
                 <button className="btn bnt-secondary btn-sm" onClick={this.handleIncrement}>
                     <i className="fa fa-plus" />
                 </button>
+                <span>  </span>
+                <button className="btn bnt-secondary btn-sm" onClick={this.handleDecrement}>
+                    <i className="fa fa-minus" />
+                </button>
             </div>
         )
     }
 
     getBadgeClasses = () => {
         let classes = "badge m-2 badge-";
-        return  classes += this.state.quantity === 0 ? "warning" : "primary";
+        return  classes += this.state.quantity === 0 ? "danger" : "success";
     }
 
     formatQuantity() {
         const { quantity } = this.state;
-        return quantity === 0 ? "Zero" : quantity.toLocaleString();
+        return quantity === 0 ? 0 : quantity.toLocaleString();
     }
 
     handleIncrement = () => {
         this.setState({quantity: this.state.quantity + 1});
+    }
+
+    handleDecrement = () => {
+        if (this.state.quantity > 0) { 
+            this.setState({quantity: this.state.quantity - 1});
+        }
     }
 }
 
